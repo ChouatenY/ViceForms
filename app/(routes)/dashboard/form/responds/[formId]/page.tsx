@@ -41,7 +41,7 @@ const Responds = async ({ params }: { params: { formId: string } }) => {
               ({responses?.length}) Responses
             </h1>
             <a
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/public/submit-form/${formId}`}
+              href={`/public/submit-form/${formId}`}
               target="_blank"
             >
               <Button

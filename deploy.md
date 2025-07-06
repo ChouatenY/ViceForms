@@ -35,7 +35,6 @@
 
 3. **Configure Environment Variables in Vercel**
    ```
-   NEXT_PUBLIC_APP_URL=https://your-app-name.vercel.app
    DATABASE_URL=your-neon-pooled-connection-string
    DIRECT_DATABASE_URL=your-neon-direct-connection-string
    NEXT_PUBLIC_GEMINI_API_KEY=your-gemini-api-key
@@ -53,8 +52,7 @@
    - [ ] Form creation works
    - [ ] AI features work (if Gemini API configured)
 
-2. **Update Environment Variables**
-   - Update `NEXT_PUBLIC_APP_URL` to your actual Vercel URL
+2. **Test Functionality**
    - Test all functionality
 
 ### 🐛 Troubleshooting
