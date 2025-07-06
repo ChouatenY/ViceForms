@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { formatDistanceToNowStrict } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import ClientOnly from "@/components/ClientOnly";
 
 type PropsType = {
   id: number;
@@ -36,14 +37,16 @@ const FormItem = (props: PropsType) => {
 
   const onClick = useCallback(() => {
     router.push(`/dashboard/form/builder/${formId}`);
-  }, []);
+  }, [formId, router]);
   return (
-    <div onClick={onClick} role="button" className="w-full h-auto">
+    <div onClick={onClick} role="button" className="w-full h-auto group cursor-pointer transition-all duration-200 hover:scale-[1.02]">
       <div
-        className="w-full relative flex 
+        className="w-full relative flex
       items-center justify-center
       overflow-hidden h-[150px] rounded-t-xl border border-gray-300
-      bg-gradient-to-b from-primary/10 to-primary/10
+      bg-gradient-to-b from-primary/5 to-primary/10
+      group-hover:from-secondary/20 group-hover:to-secondary/30
+      transition-all duration-200
       "
       >
         <div
@@ -128,9 +131,11 @@ const FormItem = (props: PropsType) => {
                   gap-1 text-[13px]
                   "
           >
-            {formatDistanceToNowStrict(new Date(createdAt), {
-              addSuffix: true,
-            })}
+            <ClientOnly fallback={new Date(createdAt).toLocaleDateString()}>
+              {formatDistanceToNowStrict(new Date(createdAt), {
+                addSuffix: true,
+              })}
+            </ClientOnly>
           </span>
         </div>
       </div>

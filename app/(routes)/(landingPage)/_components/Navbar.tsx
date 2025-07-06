@@ -1,16 +1,12 @@
 import React from "react";
 import { ExternalLink } from "lucide-react";
-import {
-  LoginLink,
-  RegisterLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/logo";
 
 const NavBar = () => {
   return (
-    <div className="shadow-sm w-full sticky top-0 !bg-[#43217c]  dark:bg-gray-900 z-[9999]">
+    <div className="shadow-sm w-full sticky top-0 !bg-[#47423e]  dark:bg-gray-900 z-[9999]">
       <div className="w-full mx-auto max-w-7xl p-3 px-5 flex items-center justify-between ">
         <div className="flex items-center flex-1 gap-9">
           <div>
@@ -32,14 +28,14 @@ const NavBar = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <LoginLink>
+          <Link href="/dashboard">
             <Button variant="outline" className="bg-transparent text-white">
-              Sign In
+              Dashboard
             </Button>
-          </LoginLink>
-          <RegisterLink>
+          </Link>
+          <Link href="/dashboard">
             <Button>Get Started</Button>
-          </RegisterLink>
+          </Link>
         </div>
       </div>
     </div>

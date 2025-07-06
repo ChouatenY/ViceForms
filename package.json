@@ -1,5 +1,5 @@
 {
-  "name": "formy-ai-builder",
+  "name": "viceforms",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,7 +13,6 @@
     "@dnd-kit/core": "^6.2.0",
     "@google/generative-ai": "^0.21.0",
     "@hookform/resolvers": "^3.9.1",
-    "@kinde-oss/kinde-auth-nextjs": "^2.3.11",
     "@prisma/client": "^5.22.0",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",

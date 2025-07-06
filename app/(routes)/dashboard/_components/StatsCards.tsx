@@ -22,7 +22,7 @@ const StatsCards = (props: {
           lg:grid-cols-2
            xl:grid-cols-4"
     >
-      <Card className="bg-white">
+      <Card className="bg-white hover:shadow-md transition-all duration-200 hover:border-secondary/30 border-l-4 border-l-secondary/20">
         <CardHeader className="pb-2">
           <CardDescription>Total Forms</CardDescription>
           <CardTitle className="text-4xl">
@@ -41,7 +41,7 @@ const StatsCards = (props: {
       </Card>
 
       {/* {Responses} */}
-      <Card className="bg-white">
+      <Card className="bg-white hover:shadow-md transition-all duration-200 hover:border-secondary/30 border-l-4 border-l-primary/20">
         <CardHeader className="pb-2">
           <CardDescription>Total Responses</CardDescription>
           <CardTitle className="text-4xl">
@@ -60,7 +60,7 @@ const StatsCards = (props: {
       </Card>
 
       {/* {Conversion Rate} */}
-      <Card className="bg-white">
+      <Card className="bg-white hover:shadow-md transition-all duration-200 hover:border-secondary/30 border-l-4 border-l-secondary/40">
         <CardHeader className="pb-2">
           <CardDescription>Conversion Rate</CardDescription>
           <CardTitle className="text-4xl">
@@ -79,7 +79,7 @@ const StatsCards = (props: {
       </Card>
 
       {/* {Engagement Rate} */}
-      <Card className="bg-white">
+      <Card className="bg-white hover:shadow-md transition-all duration-200 hover:border-secondary/30 border-l-4 border-l-primary/40">
         <CardHeader className="pb-2">
           <CardDescription>Engagement Rate</CardDescription>
           <CardTitle className="text-4xl">

@@ -1,11 +1,10 @@
 import { prisma } from "@/lib/prismadb";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { getLocalUser } from "@/lib/local-user";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
-    const session = getKindeServerSession();
-    const user = await session.getUser();
+    const user = await getLocalUser();
 
     if (!user) {
       return NextResponse.json(

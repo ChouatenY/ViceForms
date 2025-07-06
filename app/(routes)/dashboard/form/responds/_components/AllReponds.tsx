@@ -1,3 +1,4 @@
+"use client";
 import React, { FC } from "react";
 import { FormBlockInstance } from "@/@types/form-block.type";
 import { Card, CardContent } from "@/components/ui/card";

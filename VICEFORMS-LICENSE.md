@@ -1,4 +1,4 @@
-# Techwithemma License Terms
+# VICE FORMS License Terms
 
 ## License Requirement
 If you intend to generate revenue using our intellectual property, you are required to obtain a valid license. A free license is included when you purchase the codebase. Below are instances where a license is required:

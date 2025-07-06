@@ -1,5 +1,5 @@
-export const defaultPrimaryColor = "#673ab7";
-export const defaultBackgroundColor = "#f0ebf8";
+export const defaultPrimaryColor = "#47423e";
+export const defaultBackgroundColor = "#f8f9fa";
 
 export const allBlockLayouts = ["RowLayout", "ColumnLayout", "GridLayout"];
 

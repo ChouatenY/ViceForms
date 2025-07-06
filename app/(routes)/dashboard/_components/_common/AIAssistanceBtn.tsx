@@ -107,7 +107,7 @@ const AIAssistanceBtn = () => {
           <div
             className="
           flex flex-col  
-          w-[390px] bg-white border-2 border-purple-200 
+          w-[390px] bg-white border-2 border-secondary/30
           rounded-lg px-5  pb-[14px] pt-[18px] shadow-xl
           "
           >
@@ -164,7 +164,7 @@ const AIAssistanceBtn = () => {
             >
               <div
                 role="button"
-                className=" text-purple-400 
+                className=" text-secondary
                 font-medium underline text-sm ml-1"
                 onClick={() => setShow(!show)}
               >
@@ -190,9 +190,9 @@ const AIAssistanceBtn = () => {
                 className="flex 
               flex-col
               rounded border
-               border-purple-300
-                bg-purple-100
-                 text-purple-500
+               border-secondary/40
+                bg-secondary/20
+                 text-primary
                  px-3 pt-3
                  mt-2
                  mb-1"

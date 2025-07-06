@@ -4,12 +4,11 @@ import { FormWithSettings } from "@/@types/form.type";
 import { defaultBackgroundColor, defaultPrimaryColor } from "@/constant";
 import { generateUniqueId } from "@/lib/helper";
 import { prisma } from "@/lib/prismadb";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { getLocalUser } from "@/lib/local-user";
 
 export async function fetchFormStats() {
   try {
-    const session = getKindeServerSession();
-    const user = await session.getUser();
+    const user = await getLocalUser();
 
     if (!user) {
       return {
@@ -55,8 +54,7 @@ export async function fetchFormStats() {
 
 export async function createForm(data: { name: string; description: string }) {
   try {
-    const session = getKindeServerSession();
-    const user = await session.getUser();
+    const user = await getLocalUser();
     if (!user) {
       return {
         success: false,
@@ -107,7 +105,7 @@ export async function createForm(data: { name: string; description: string }) {
         name: data.name,
         description: data.description,
         userId: user.id,
-        creatorName: user?.given_name || "",
+        creatorName: user?.name || "Anonymous",
         settingsId: formSettings.id,
         jsonBlocks,
       },
@@ -135,8 +133,7 @@ export async function createForm(data: { name: string; description: string }) {
 
 export async function fetchAllForms() {
   try {
-    const session = getKindeServerSession();
-    const user = await session.getUser();
+    const user = await getLocalUser();
 
     if (!user) {
       return {
@@ -178,8 +175,7 @@ export async function saveForm(data: {
 }) {
   try {
     const { formId, name, description, jsonBlocks } = data;
-    const session = getKindeServerSession();
-    const user = await session.getUser();
+    const user = await getLocalUser();
 
     if (!user) {
       return {
@@ -219,8 +215,7 @@ export async function saveForm(data: {
 
 export async function updatePublish(formId: string, published: boolean) {
   try {
-    const session = getKindeServerSession();
-    const user = await session.getUser();
+    const user = await getLocalUser();
 
     if (!user) {
       return {
@@ -334,8 +329,7 @@ export async function submitResponse(formId: string, response: string) {
 
 export async function fetchAllResponseByFormId(formId: string) {
   try {
-    const session = getKindeServerSession();
-    const user = await session.getUser();
+    const user = await getLocalUser();
 
     if (!user) {
       return {
