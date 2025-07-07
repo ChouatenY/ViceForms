@@ -18,37 +18,40 @@ const PublishFormBtn = () => {
 
   const togglePublishState = async () => {
     await handleFormSubmit(async () => {
-      if (!formId) return;
-      setIsLoading(true);
+      try {
+        if (!formId) return;
+        setIsLoading(true);
 
-      // Toggle published state
-      const newPublishedState = !formData?.published;
-      const response = await updatePublish(formId, newPublishedState);
-      if (response?.success) {
-        toast({
-          title: "Success",
-          description: response.message,
-        });
+        // Toggle published state
+        const newPublishedState = !formData?.published;
+        const response = await updatePublish(formId, newPublishedState);
+        if (response?.success) {
+          toast({
+            title: "Success",
+            description: response.message,
+          });
 
-        handleSeletedLayout(null);
-        setFormData({
-          ...formData,
-          published: response.published || false,
-        });
-      } else {
+          handleSeletedLayout(null);
+          setFormData({
+            ...formData,
+            published: response.published || false,
+          });
+        } else {
+          toast({
+            title: "Error",
+            description: response?.message || "Something went wrong",
+            variant: "destructive",
+          });
+        }
+      } catch (error: any) {
         toast({
           title: "Error",
-          description: response?.message || "Something went wrong",
+          description: error?.message || "Something went wrong",
           variant: "destructive",
         });
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error?.message || "Something went wrong",
-        variant: "destructive",
-      });
-      setIsLoading(false);
     });
   };
 

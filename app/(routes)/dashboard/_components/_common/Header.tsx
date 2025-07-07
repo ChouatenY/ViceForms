@@ -2,7 +2,6 @@
 import React from "react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import Logo from "@/components/logo";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -10,7 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ChevronDown, User, RefreshCw } from "lucide-react";
 import { useLocalUser } from "@/hooks/use-local-user";
 
@@ -55,10 +54,9 @@ const Header = () => {
            text-lg font-medium flex justify-between flex-row"
       >
         <div
-          className="flex flex-1 items-center mr-5 pr-8 
+          className="flex flex-1 items-center mr-5 pr-8
          border-r border-gray-600"
         >
-          <Logo url="/dashboard" />
           <span className="sr-only">ViceForms</span>
         </div>
         <ul className="hidden md:flex flex-row">

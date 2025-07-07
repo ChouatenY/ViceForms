@@ -17,53 +17,56 @@ const SaveFormBtn = () => {
 
   const saveFormData = async () => {
     await handleFormSubmit(async () => {
-      if (!formId) return;
-      setIsLoading(true);
+      try {
+        if (!formId) return;
+        setIsLoading(true);
 
-      const lockedBlockLayout = blockLayouts.find((block) => block.isLocked);
+        const lockedBlockLayout = blockLayouts.find((block) => block.isLocked);
 
-      const name = lockedBlockLayout?.childblocks?.find(
-        (child) => child.blockType === "Heading"
-      )?.attributes?.label as string;
+        const name = lockedBlockLayout?.childblocks?.find(
+          (child) => child.blockType === "Heading"
+        )?.attributes?.label as string;
 
-      const description = lockedBlockLayout?.childblocks?.find(
-        (child) => child.blockType === "Paragraph"
-      )?.attributes?.text as string;
+        const description = lockedBlockLayout?.childblocks?.find(
+          (child) => child.blockType === "Paragraph"
+        )?.attributes?.text as string;
 
-      const jsonBlocks = JSON.stringify(blockLayouts);
+        const jsonBlocks = JSON.stringify(blockLayouts);
 
-      const response = await saveForm({
-        formId,
-        name,
-        description,
-        jsonBlocks,
-      });
-
-      if (response?.success) {
-        toast({
-          title: "Success",
-          description: response.message,
+        const response = await saveForm({
+          formId,
+          name,
+          description,
+          jsonBlocks,
         });
-        if (response.form) {
-          setFormData({
-            ...formData,
-            ...response.form,
+
+        if (response?.success) {
+          toast({
+            title: "Success",
+            description: response.message,
+          });
+          if (response.form) {
+            setFormData({
+              ...formData,
+              ...response.form,
+            });
+          }
+        } else {
+          toast({
+            title: "Error",
+            description: response?.message || "Something went wrong",
+            variant: "destructive",
           });
         }
-      } else {
+      } catch (error: any) {
         toast({
           title: "Error",
-          description: response?.message || "Something went wrong",
+          description: error?.message || "Something went wrong",
           variant: "destructive",
         });
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error: any) {
-      toast({
-        title: "Error",
-        description: error?.message || "Something went wrong",
-        variant: "destructive",
-      });
-      setIsLoading(false);
     });
   };
   return (

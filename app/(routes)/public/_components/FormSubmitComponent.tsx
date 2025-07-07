@@ -65,25 +65,28 @@ const FormSubmitComponent = (props: {
     }
 
     await handleFormSubmit(async () => {
-      setIsLoading(true);
-      const responseJson = JSON.stringify(formVals.current);
-      const response = await submitResponse(formId, responseJson);
-      if (response.success) {
-        setSubmitted(true);
-      } else {
+      try {
+        setIsLoading(true);
+        const responseJson = JSON.stringify(formVals.current);
+        const response = await submitResponse(formId, responseJson);
+        if (response.success) {
+          setSubmitted(true);
+        } else {
+          toast({
+            title: "Error",
+            description: response.message,
+            variant: "destructive",
+          });
+        }
+      } catch (error) {
         toast({
           title: "Error",
-          description: response.message,
+          description: "Something went wrong",
           variant: "destructive",
         });
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong",
-        variant: "destructive",
-      });
-      setIsLoading(false);
     });
   };
 
