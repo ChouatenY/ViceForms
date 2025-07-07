@@ -6,15 +6,17 @@ import { useBuilder } from "@/context/builder-provider";
 import { saveForm } from "@/actions/form.action";
 import { toast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { useIframeForm } from "@/hooks/use-iframe-form";
 
 const SaveFormBtn = () => {
   const { formData, setFormData, blockLayouts } = useBuilder();
   const formId = formData?.formId;
+  const { handleFormSubmit, isInIframe } = useIframeForm();
 
   const [isLoading, setIsLoading] = useState(false);
 
   const saveFormData = async () => {
-    try {
+    await handleFormSubmit(async () => {
       if (!formId) return;
       setIsLoading(true);
 
@@ -61,9 +63,8 @@ const SaveFormBtn = () => {
         description: error?.message || "Something went wrong",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
-    }
+    });
   };
   return (
     <Button

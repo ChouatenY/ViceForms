@@ -7,15 +7,17 @@ import { useBuilder } from "@/context/builder-provider";
 import { cn } from "@/lib/utils";
 import { updatePublish } from "@/actions/form.action";
 import { toast } from "@/hooks/use-toast";
+import { useIframeForm } from "@/hooks/use-iframe-form";
 
 const PublishFormBtn = () => {
   const { formData, setFormData, handleSeletedLayout } = useBuilder();
   const formId = formData?.formId;
+  const { handleFormSubmit, isInIframe } = useIframeForm();
 
   const [isLoading, setIsLoading] = useState(false);
 
   const togglePublishState = async () => {
-    try {
+    await handleFormSubmit(async () => {
       if (!formId) return;
       setIsLoading(true);
 
@@ -46,9 +48,8 @@ const PublishFormBtn = () => {
         description: error?.message || "Something went wrong",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
-    }
+    });
   };
 
   const isPublished = formData?.published;

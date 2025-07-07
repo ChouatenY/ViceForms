@@ -8,12 +8,14 @@ import Logo from "@/components/logo";
 import { toast } from "@/hooks/use-toast";
 import { submitResponse } from "@/actions/form.action";
 import { Card, CardContent } from "@/components/ui/card";
+import { useIframeForm } from "@/hooks/use-iframe-form";
 
 const FormSubmitComponent = (props: {
   formId: string;
   blocks: FormBlockInstance[];
 }) => {
   const { formId, blocks } = props;
+  const { handleFormSubmit, isInIframe } = useIframeForm();
 
   const formVals = useRef<{ [key: string]: string }>({});
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
@@ -62,7 +64,7 @@ const FormSubmitComponent = (props: {
       return;
     }
 
-    try {
+    await handleFormSubmit(async () => {
       setIsLoading(true);
       const responseJson = JSON.stringify(formVals.current);
       const response = await submitResponse(formId, responseJson);
@@ -81,9 +83,8 @@ const FormSubmitComponent = (props: {
         description: "Something went wrong",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
-    }
+    });
   };
 
   return (

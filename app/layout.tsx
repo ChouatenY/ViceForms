@@ -23,6 +23,28 @@ export default function RootLayout({
           {children}
           <Toaster />
         </LocalUserProvider>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Iframe communication setup
+              if (window.self !== window.top) {
+                // We're in an iframe
+                window.addEventListener('message', function(event) {
+                  if (event.data.type === 'IFRAME_FOCUS') {
+                    window.focus();
+                    document.body.focus();
+                  }
+                });
+
+                // Notify parent that iframe is ready
+                window.parent.postMessage({
+                  type: 'IFRAME_READY',
+                  timestamp: Date.now()
+                }, '*');
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
