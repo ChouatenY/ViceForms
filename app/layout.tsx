@@ -26,22 +26,68 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Iframe communication setup
-              if (window.self !== window.top) {
-                // We're in an iframe
-                window.addEventListener('message', function(event) {
-                  if (event.data.type === 'IFRAME_FOCUS') {
-                    window.focus();
-                    document.body.focus();
-                  }
-                });
+              // Enhanced iframe communication setup
+              (function() {
+                const isInIframe = window.self !== window.top;
 
-                // Notify parent that iframe is ready
-                window.parent.postMessage({
-                  type: 'IFRAME_READY',
-                  timestamp: Date.now()
-                }, '*');
-              }
+                if (isInIframe) {
+                  console.log('ViceForms: Running in iframe mode');
+
+                  // Enhanced message handling
+                  window.addEventListener('message', function(event) {
+                    console.log('ViceForms: Received message:', event.data);
+
+                    switch(event.data.type) {
+                      case 'IFRAME_FOCUS':
+                        window.focus();
+                        document.body.focus();
+                        break;
+                      case 'IFRAME_REFRESH':
+                        window.location.reload();
+                        break;
+                    }
+                  });
+
+                  // Enhanced error handling
+                  window.addEventListener('error', function(event) {
+                    window.parent.postMessage({
+                      type: 'IFRAME_ERROR',
+                      error: event.error?.message || 'Unknown error',
+                      timestamp: Date.now()
+                    }, '*');
+                  });
+
+                  // Notify parent that iframe is ready
+                  window.parent.postMessage({
+                    type: 'IFRAME_READY',
+                    url: window.location.href,
+                    timestamp: Date.now()
+                  }, '*');
+
+                  // Override form submissions to notify parent
+                  const originalFetch = window.fetch;
+                  window.fetch = function(...args) {
+                    return originalFetch.apply(this, args).then(response => {
+                      if (response.ok && args[0]?.includes('/api/')) {
+                        window.parent.postMessage({
+                          type: 'IFRAME_API_SUCCESS',
+                          url: args[0],
+                          timestamp: Date.now()
+                        }, '*');
+                      }
+                      return response;
+                    }).catch(error => {
+                      window.parent.postMessage({
+                        type: 'IFRAME_API_ERROR',
+                        url: args[0],
+                        error: error.message,
+                        timestamp: Date.now()
+                      }, '*');
+                      throw error;
+                    });
+                  };
+                }
+              })();
             `,
           }}
         />

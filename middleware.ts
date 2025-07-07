@@ -6,8 +6,8 @@ export function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
   // Add iframe-friendly headers
-  response.headers.set('X-Frame-Options', 'SAMEORIGIN');
-  response.headers.set('Content-Security-Policy', "frame-ancestors 'self' *");
+  response.headers.delete('X-Frame-Options'); // Remove X-Frame-Options to allow all origins
+  response.headers.set('Content-Security-Policy', "frame-ancestors *");
   
   // Add CORS headers for iframe communication
   response.headers.set('Access-Control-Allow-Origin', '*');

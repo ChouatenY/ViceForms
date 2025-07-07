@@ -8,11 +8,11 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN', // Allow same-origin iframes, change to 'ALLOWALL' if needed
+            value: 'ALLOWALL', // Allow embedding in any iframe
           },
           {
             key: 'Content-Security-Policy',
-            value: "frame-ancestors 'self' *", // Allow embedding in any iframe
+            value: "frame-ancestors *", // Allow embedding from any origin
           },
         ],
       },

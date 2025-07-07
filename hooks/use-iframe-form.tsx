@@ -37,23 +37,33 @@ export function useIframeForm() {
     try {
       // Ensure iframe has focus
       focusIframe();
-      
+
+      // Log for debugging
+      if (isInIframe()) {
+        console.log("ViceForms: Executing form submission in iframe");
+        postMessageToParent({
+          type: "IFRAME_FORM_START",
+          timestamp: Date.now()
+        });
+      }
+
       // Execute the form submission
       const result = await submitFunction();
-      
+
       // If in iframe, notify parent of success
       if (isInIframe()) {
+        console.log("ViceForms: Form submission successful", result);
         postMessageToParent({
           type: "IFRAME_FORM_SUCCESS",
           data: result,
           timestamp: Date.now()
         });
       }
-      
+
       return result;
     } catch (error) {
-      console.error("Form submission error:", error);
-      
+      console.error("ViceForms: Form submission error:", error);
+
       // If in iframe, notify parent of error
       if (isInIframe()) {
         postMessageToParent({
@@ -62,14 +72,14 @@ export function useIframeForm() {
           timestamp: Date.now()
         });
       }
-      
+
       // Show toast error
       toast({
         title: "Error",
         description: "Something went wrong. Please try again.",
         variant: "destructive",
       });
-      
+
       throw error;
     }
   }, []);
