@@ -4,13 +4,14 @@ import { useBuilder } from "@/context/builder-provider";
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { getFormShareUrl } from "@/lib/url-utils";
 
 const FloatingShareButton = (props: { isSidebarOpen: boolean }) => {
   const { isSidebarOpen } = props;
   const { formData } = useBuilder();
 
   const copyLinkToClipboard = () => {
-    const shareableLink = `${window.location.origin}/public/submit-form/${formData?.formId}`;
+    const shareableLink = getFormShareUrl(formData?.formId || "");
     navigator.clipboard
       .writeText(shareableLink)
       .then(() => {

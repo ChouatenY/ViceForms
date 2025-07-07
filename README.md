@@ -53,6 +53,9 @@ This project is built using:
 Create a `.env` file in the root of your project and add the following:
 
 ```plaintext
+# ViceForms Configuration
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
 # Database Configuration (Neon PostgreSQL)
 DATABASE_URL=<your-neon-pooled-connection-string>
 DIRECT_DATABASE_URL=<your-neon-direct-connection-string>
@@ -111,6 +114,7 @@ Access the application at `http://localhost:3000`.
 
 3. **Configure Environment Variables** in Vercel:
    ```
+   NEXT_PUBLIC_APP_URL=https://your-app-name.vercel.app
    DATABASE_URL=your-neon-pooled-connection-string
    DIRECT_DATABASE_URL=your-neon-direct-connection-string
    NEXT_PUBLIC_GEMINI_API_KEY=your-gemini-api-key

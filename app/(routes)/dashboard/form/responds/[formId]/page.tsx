@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import AllReponds from "../_components/AllReponds";
+import { getFormPreviewUrl } from "@/lib/url-utils";
 
 const Responds = async ({ params }: { params: { formId: string } }) => {
   const { formId } = params;
@@ -41,7 +42,7 @@ const Responds = async ({ params }: { params: { formId: string } }) => {
               ({responses?.length}) Responses
             </h1>
             <a
-              href={`/public/submit-form/${formId}`}
+              href={getFormPreviewUrl(formId)}
               target="_blank"
             >
               <Button
